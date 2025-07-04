@@ -49,10 +49,9 @@
         .code-line {
             position: absolute;
             font-family: 'Courier New', monospace;
-            color: orange;
+            color: yellow;
             font-size: 10px;
             white-space: nowrap;
-            text-shadow: 0 0 5px rgba(255, 166, 0, 0.886);
             opacity: 0;
             animation: fadeInOut 10s infinite;
         }
@@ -66,7 +65,7 @@
             display: inline-block;
             width: 5px;
             height: 10px;
-            background: orange;
+            background: yellow;
             margin-left: 5px;
             animation: blink 1s infinite;
         }
@@ -365,7 +364,7 @@
             background-color: rgb(37, 37, 37);
         }
 
-        #about .section-title {
+        #about .section-title h2 {
             color: white !important;
             margin-bottom: 1rem;
             text-align: center;
@@ -424,6 +423,13 @@
         /* Services Section */
         #services {
             padding-bottom: 4rem;
+            background-color: black;
+        }
+
+        #services .section-title h2 {
+            color: white !important;
+            margin-bottom: 1rem;
+            text-align: center;
         }
 
         .services-grid {
@@ -466,13 +472,19 @@
         }
 
         .service-icon {
-            font-size: 2.5rem;
             color: var(--accent);
             margin-bottom: 1.5rem;
             transition: all 0.3s;
         }
 
-        .service-card:hover .service-icon {
+        .service-icon img {
+            width: 100px; /* adjust size if needed */
+            height: 60px;
+            object-fit: contain;
+            transition: all 0.3s;
+        }
+
+        .service-card:hover .service-icon img {
             transform: rotate(15deg) scale(1.2);
         }
 
