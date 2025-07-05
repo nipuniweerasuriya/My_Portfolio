@@ -21,58 +21,48 @@
             overflow-x: hidden;
         }
 
-        /* Particles Background */
+        /* Particles Background */       
         #particles-js {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: -200; /* Behind code background */
-            background-color: var(--primary);
-            opacity: 0.3; /* More transparent to see code */
+        position: fixed; /* Covers entire viewport */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1; /* Behind content */
+        background: #0f0f1a; /* Dark base (adjust to match your theme) */
         }
 
-        /* Coding Background Styles */
-        .code-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background-color: black !important;
-            overflow: hidden;
-            
+        /* Optional: Add a subtle radial gradient overlay */
+        #particles-js::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at center, transparent 0%, rgba(15, 15, 26, 0.8) 100%);
         }
 
-        .code-line {
-            position: absolute;
-            font-family: 'Courier New', monospace;
-            color: yellow;
-            font-size: 10px;
-            white-space: nowrap;
-            opacity: 0;
-            animation: fadeInOut 10s infinite;
+        /* Optional: Add a subtle radial glow where cursor hovers */
+        #particles-js::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+            circle at var(--mouse-x) var(--mouse-y), 
+            rgba(255, 100, 200, 0.1) 0%, 
+            transparent 70%
+        );
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.3s;
         }
 
-        @keyframes fadeInOut {
-            0%, 100% { opacity: 0; }
-            10%, 90% { opacity: 0.6; }
-        }
-
-        .code-cursor {
-            display: inline-block;
-            width: 5px;
-            height: 10px;
-            background: yellow;
-            margin-left: 5px;
-            animation: blink 1s infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
+        #particles-js:hover::before {
+        opacity: 1; /* Show glow on hover */
         }
 
         /* Navigation */
@@ -82,14 +72,93 @@
             left: 0;
             width: 100%;
             z-index: 1000;
-            background-color: black;
+            background-color: transparent;
             backdrop-filter: blur(10px);
             padding: 1rem 2rem;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-left: none;
-            border-right: none;
-            border-bottom: 1px solid rgb(0, 225, 255);
+            border-bottom: 1px solid transparent;
+            overflow: hidden;
         }
+
+        /* Animated Border - Ping Pong Flow */
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -100%;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgb(0, 225, 255),
+                rgb(0, 225, 255),
+                transparent
+            );
+            box-shadow: 0 0 15px rgba(0, 225, 255, 0.8);
+            animation: borderPingPong 10s ease-in-out infinite;
+        }
+
+        @keyframes borderPingPong {
+            0% {
+                left: -100%;
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            50% {
+                left: 100%;
+                opacity: 1;
+            }
+            60% {
+                opacity: 0;
+            }
+            100% {
+                left: -100%;
+                opacity: 0;
+            }
+        }
+
+        /* Secondary Glow (Reverse Direction) */
+        header::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: -100%;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(
+                270deg,
+                transparent,
+                rgb(0, 225, 255),
+                rgb(0, 225, 255),
+                transparent
+            );
+            animation: borderPingPongReverse 4s ease-in-out infinite 2s;
+        }
+
+        @keyframes borderPingPongReverse {
+            0% {
+                right: -100%;
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            50% {
+                right: 100%;
+                opacity: 1;
+            }
+            60% {
+                opacity: 0;
+            }
+            100% {
+                right: -100%;
+                opacity: 0;
+            }
+        }
+
 
         nav {
             display: flex;
@@ -97,6 +166,7 @@
             align-items: center;
             max-width: 1200px;
             margin: 0 auto;
+            
         }
 
         .logo {
@@ -361,7 +431,13 @@
 
         /* About Section */
         #about {
-            background-color: rgb(37, 37, 37);
+            background-color: #0f0f1a;
+            border-radius: 10px;
+            border-top: 1px solid rgb(0, 225, 255);
+            border-bottom: 1px solid rgb(0, 225, 255);
+            border-left: none;
+            border-right: none;
+           
         }
 
         #about .section-title h2 {
@@ -422,8 +498,14 @@
 
         /* Services Section */
         #services {
+            margin-top: 1rem;
             padding-bottom: 4rem;
-            background-color: black;
+            background-color: transparent;
+            border-radius: 10px;
+            border-top: none;
+            border-bottom: none;
+            border-left: 1px solid rgb(0, 225, 255);
+            border-right: 1px solid rgb(0, 225, 255);
         }
 
         #services .section-title h2 {
@@ -495,7 +577,13 @@
 
         /* Portfolio Section */
         #portfolio {
-            background-color: var(--light-gray);
+            margin-top: 1rem;
+            background-color: #0f0f1a;
+            border-radius: 10px;
+            border-top: 1px solid rgb(0, 225, 255);
+            border-bottom: 1px solid rgb(0, 225, 255);
+            border-left: none;
+            border-right: none;
         }
 
         .portfolio-filter {
@@ -628,7 +716,13 @@
 
         /* Certifications Section */
         #certifications {
-            padding-bottom: 4rem;
+            margin-top: 1rem;
+            background-color: transparent;
+            border-radius: 10px;
+            border-top: none;
+            border-bottom: none;
+            border-left: 1px solid rgb(0, 225, 255);
+            border-right: 1px solid rgb(0, 225, 255);
         }
 
         .certs-grid {
@@ -721,7 +815,13 @@
 
         /* Contact Section */
         #contact {
-            background-color: var(--light-gray);
+            margin-top: 1rem;
+            background-color: transparent;
+            border-radius: 10px;
+            border-top: 1px solid rgb(0, 225, 255);
+            border-bottom: 1px solid rgb(0, 225, 255);
+            border-left: none;
+            border-right: none;
         }
 
         .contact-container {
